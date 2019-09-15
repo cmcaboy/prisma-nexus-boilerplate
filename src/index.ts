@@ -86,10 +86,6 @@ const context = async ({ req }: { req: any }) => {
       messaging,
       user: { id, email, role }
     };
-    // const doesUserExist = await prisma.$exists.user({id})
-    // if(!doesUserExist) {
-    //   throw new ApolloError("User does not exist")
-    // }
   } catch (e) {
     // If token is not valid, catch the exception. Some routes can still be accessed without a valid JWT token
   }
@@ -127,21 +123,6 @@ app.use('/graphql', (req, _, next) => {
   }
   next();
 });
-
-// const authenticate = async (req, res, next) => {
-//   // const token = req.headers.authorization;
-//   // try {
-//   //   const { user } = await jwt.verify(token, SECRET);
-//   //   req.user = user;
-//   // } catch (err) {
-//   //   console.log(err);
-//   // }
-//   console.log("req: ", req);
-//   console.log("res: ", res);
-//   req.next();
-// };
-
-// app.use(authenticate);
 
 server.applyMiddleware({
   app,

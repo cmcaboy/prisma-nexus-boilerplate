@@ -1,0 +1,41 @@
+type User {
+  id: ID! @id
+  email: String! @unique
+  token: String
+  name: String
+  username: String
+  description: String
+  photo_url: String
+  flagged_as_objectionable: Boolean @default(value: false)
+  view_objectionable_content: Boolean @default(value: true)
+  receive_push_notifications: Boolean @default(value: true)
+  oneSignalPlayerId: String
+  fcm_token: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  facebook_social_link: String
+  twitter_social_link: String
+  instagram_social_link: String
+  snapchat_social_link: String
+  role: ROLE @default(value: USER)
+  notifications: [Notification] @relation(onDelete: CASCADE)
+  block_list: [User] @relation(onDelete: SET_NULL)
+}
+
+type Notification {
+  id: ID! @id
+  title: String
+  description: String
+  image_url: String
+  data: Json
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  expiration: DateTime! 
+  read: Boolean @default(value: false)
+  user: User! @relation(onDelete: SET_NULL)
+}
+
+enum ROLE {
+  SUPER_USER
+  USER
+}

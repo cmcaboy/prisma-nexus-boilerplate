@@ -1,0 +1,8 @@
+/node_modules
+
+/dist
+
+yarn.lock
+.env
+schema.json
+yarn-error.log

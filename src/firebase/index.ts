@@ -10,16 +10,20 @@ import { FIREBASE_API_FILE } from '../utils/variables';
  */
 
 // You may have to use relative path to get this to work
-const serviceAccount = require(FIREBASE_API_FILE);
+/*const serviceAccount = require(FIREBASE_API_FILE);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://joinmi-d42c8.firebaseio.com'
-});
+  databaseURL: ''
+});*/
 
-const messaging = admin.messaging();
+/*const messaging = admin.messaging();
 const auth = admin.auth();
 const db = admin.database();
-const firestore = admin.firestore();
+const firestore = admin.firestore();*/
+const messaging  = {}
+const auth  = {}
+const db  = {}
+const firestore  = {}
 
 export { messaging, auth, db, firestore };

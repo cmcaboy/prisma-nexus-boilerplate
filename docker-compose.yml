@@ -1,26 +1,60 @@
-version: "3"
+version: '3'
+networks:
+  local-network:
 services:
   prisma:
-    image: prismagraphql/prisma:1.32
+    networks:
+      - local-network
+    image: prismagraphql/prisma:1.14
     restart: always
     ports:
-      - "4466:4466"
+    - "4466:4466"
     environment:
       PRISMA_CONFIG: |
         port: 4466
         databases:
           default:
-            connector: mysql
-            host: mysql
-            port: 3306
+            connector: postgres
+            host: postgres
+            port: 5432
             user: root
             password: prisma
             migrations: true
-  mysql:
-    image: mysql:5.7
+            managementSchema: management
+            database: root
+  postgres:
+    networks:
+      - local-network
+    image: postgres
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: prisma
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: prisma
     volumes:
-      - mysql:/var/lib/mysql
-volumes: mysql:
+      - postgres:/var/lib/postgresql/data
+  redis:
+    image: redis
+    networks:
+      - local-network
+    ports:
+      - 6380:6379
+
+  # The actual client application
+  client:
+    depends_on:
+      - redis
+      - prisma
+      - postgres
+    networks:
+      - local-network
+    build: .
+    environment:
+      LOCAL: "true"
+      ENV_NAME: test
+      REDIS_ENDPOINT: redis
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+    ports:
+      - 4001:4000
+volumes:
+  postgres:

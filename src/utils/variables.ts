@@ -13,3 +13,6 @@ export const GRAPHQL_ENDPOINT = '';
 
 export const APOLLO_ENGINE_API_KEY = process.env.ENGINE_API_KEY;
 export const SENTRY_DSN = process.env.SENTRY_DSN;
+
+export const NOTIFICATION_EXPIRATION_IN_DAYS=7;
+export const NOTIFICATION_EXPIRED_TASK_TITLE="Task Expired";

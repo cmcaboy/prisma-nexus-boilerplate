@@ -6,7 +6,8 @@
     "tsc": "tsc && mkdir -p dist/src/etc && cp src/etc/* dist/src/etc",
     "longrun": "(pm2 delete 'prod instance' || true) && pm2 start dist/src/index.js --name 'prod instance' -- start",
     "prod": "npm run tsc && npm run longrun",
-    "generate:schema": "apollo schema:download --endpoint=http://localhost:14000/graphql schema.json"
+    "generate:schema": "apollo schema:download --endpoint=http://localhost:14000/graphql schema.json",
+    "build": "tsc -b"
   },
   "dependencies": {
     "@sentry/node": "5.6.1",

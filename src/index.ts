@@ -21,7 +21,7 @@ import { Context } from './types';
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 
-Sentry.init({ dsn: SENTRY_DSN });
+/*Sentry.init({ dsn: SENTRY_DSN });
 
 const sentryMiddleware = sentry({
   config: {
@@ -33,7 +33,7 @@ const sentryMiddleware = sentry({
     scope.setExtra('Error message: ', error.message);
     scope.setExtra('Error name: ', error.name);
   }
-});
+});*/
 
 const baseSchema = makePrismaSchema({
   // Provide all the GraphQL types we've implemented
@@ -102,7 +102,8 @@ const context = async ({ req }: { req: any }) => {
 };
 
 // Apply Middleware
-const schema = applyMiddleware(baseSchema, permissions, sentryMiddleware);
+//const schema = applyMiddleware(baseSchema, permissions, sentryMiddleware);
+const schema = applyMiddleware(baseSchema, permissions);
 
 const server = new ApolloServer({
   schema,
@@ -130,6 +131,6 @@ server.applyMiddleware({
   // cors: false
 });
 
-app.listen(process.env.PORT || 14000, () =>
-  console.log(`API is ready at port ${process.env.PORT || 14000}`)
+app.listen(process.env.PORT || 4000, () =>
+  console.log(`API is ready at port ${process.env.PORT || 4000}`)
 );
